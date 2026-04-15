@@ -6,14 +6,14 @@
 
 <title>Video Viral</title>
 
-<!-- META MONETAG -->
 <meta name="monetag" content="ISI_META_KAMU">
 
 <style>
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #f5f5f5;
+    background: #0f0f0f;
+    color: white;
 }
 
 /* HEADER */
@@ -21,63 +21,125 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px;
-    background: #fff;
+    padding: 14px;
+    background: #111;
     font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .upload-btn {
-    background: #111;
+    background: #ff2d55;
     color: #fff;
-    padding: 8px 15px;
+    padding: 6px 14px;
     border-radius: 20px;
+    font-size: 14px;
 }
 
-/* VIDEO CONTAINER */
+/* VIDEO */
 .video-box {
-    margin: 15px;
-    border-radius: 15px;
+    margin: 12px;
+    border-radius: 14px;
     overflow: hidden;
     position: relative;
+    cursor: pointer;
 }
 
 .video-box img {
     width: 100%;
     display: block;
+    filter: brightness(0.85);
 }
 
-/* PLAY BUTTON */
+/* PLAY */
 .play-btn {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgba(255,255,255,0.9);
+    color: black;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
-    width: 70px;
-    height: 70px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 30px;
+    justify-content: center;
+    font-size: 28px;
 }
 
-/* BANNER IKLAN BAWAH */
+/* CAPTION */
+.caption {
+    margin: 10px 15px;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* BOTTOM ADS */
 .bottom-ads {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background: #fff;
+    background: white;
+    color: black;
     padding: 10px;
     text-align: center;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
 }
-
 </style>
 </head>
 
 <body>
+
+<!-- AGE GATE -->
+<div id="ageGate" style="
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.95);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:99999;
+">
+
+<div style="
+background:#fff;
+color:#000;
+padding:20px;
+border-radius:12px;
+text-align:center;
+width:80%;
+max-width:300px;
+">
+
+<h3>Konfirmasi Usia</h3>
+<p>Konten ini hanya untuk 18+</p>
+
+<button onclick="enterSite()" style="
+background:#ff2d55;
+color:#fff;
+border:none;
+padding:10px;
+border-radius:8px;
+margin-top:10px;
+width:100%;
+font-weight:bold;
+">
+Saya 18+
+</button>
+
+<button onclick="enterSite()" style="
+background:#ddd;
+color:#000;
+border:none;
+padding:10px;
+border-radius:8px;
+margin-top:10px;
+width:100%;
+">
+Keluar
+</button>
+
+</div>
+</div>
 
 <!-- HEADER -->
 <div class="header">
@@ -86,36 +148,53 @@ body {
 </div>
 
 <!-- VIDEO -->
-<div class="video-box" onclick="redirectAd()">
+<div class="video-box" onclick="handleClick()">
     <img src="https://via.placeholder.com/500x700" alt="video">
     <div class="play-btn">▶</div>
 </div>
 
-<!-- IKLAN BANNER -->
+<div class="caption">
+🔥 Video viral terbaru hari ini - klik untuk lanjut menonton
+</div>
+
+<!-- BOTTOM ADS -->
 <div class="bottom-ads">
-    PASANG SCRIPT BANNER DI SINI
+    PASANG BANNER IKLAN DI SINI
 </div>
 
 <!-- POPUNDER -->
 <script>
-(function(s){
-    s.dataset.zone='ISI_ZONE_POPUNDER';
-    s.src='https://al5sm.com/tag.min.js';
-})(document.body.appendChild(document.createElement('script')));
+(function(){
+    let s = document.createElement('script');
+    s.dataset.zone = 'ISI_ZONE_POPUNDER';
+    s.src = 'https://al5sm.com/tag.min.js';
+    document.body.appendChild(s);
+})();
 </script>
 
 <!-- VIGNETTE -->
 <script>
-(function(s){
-    s.dataset.zone='ISI_ZONE_VIGNETTE';
-    s.src='https://n6wxm.com/vignette.min.js';
-})(document.body.appendChild(document.createElement('script')));
+(function(){
+    let s = document.createElement('script');
+    s.dataset.zone = 'ISI_ZONE_VIGNETTE';
+    s.src = 'https://n6wxm.com/vignette.min.js';
+    document.body.appendChild(s);
+})();
 </script>
 
-<!-- DIRECT LINK -->
+<!-- AGE GATE FUNCTION -->
 <script>
-function redirectAd(){
-    window.location.href = "ISI_DIRECT_LINK_KAMU";
+function enterSite(){
+    document.getElementById("ageGate").style.display = "none";
+}
+</script>
+
+<!-- CLICK HANDLER (DELAY REDIRECT) -->
+<script>
+function handleClick(){
+    setTimeout(function(){
+        window.location.href = "ISI_DIRECT_LINK_KAMU";
+    }, 1200);
 }
 </script>
 
