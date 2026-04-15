@@ -4,196 +4,123 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="monetag" content="1f1a0960de0181ffac6d2eace1727f3f">
-
 <title>Video Viral</title>
+
+<!-- MONETAG META -->
+<meta name="monetag" content="1f1a0960de0181ffac6d2eace1727f3f">
 
 <style>
 body{
     margin:0;
-    font-family:Arial;
     background:#000;
+    font-family:Arial,sans-serif;
     color:#fff;
+    text-align:center;
 }
 
-.header{
+/* container */
+.wrapper{
     display:flex;
-    justify-content:space-between;
-    padding:12px 15px;
-    background:#111;
-    font-weight:bold;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
 }
 
-.upload-btn{
-    background:#fff;
-    color:#000;
-    padding:6px 12px;
-    border-radius:20px;
-    font-size:13px;
-}
-
-.video-box{
-    position:relative;
-    width:100%;
-    background:#000;
-}
-
+/* video style */
 video{
     width:100%;
-    height:auto;
-    background:#000;
-}
-
-/* OVERLAY START */
-.overlay{
-    position:absolute;
-    inset:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:rgba(0,0,0,0.25);
-}
-
-.play-btn{
-    width:75px;
-    height:75px;
-    border-radius:50%;
-    background:#fff;
-    color:#000;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:28px;
-}
-
-/* CTA NEXT STEP */
-.cta{
-    position:fixed;
-    bottom:60px;
-    width:100%;
-    text-align:center;
-    display:none;
-}
-
-.cta button{
-    padding:12px 18px;
-    border:none;
-    border-radius:10px;
-    background:#ffcc00;
-    font-weight:bold;
-}
-
-/* ADS SPACE */
-.bottom-ads{
-    position:fixed;
-    bottom:0;
-    width:100%;
+    max-width:500px;
+    border-radius:12px;
     background:#111;
-    text-align:center;
-    padding:10px;
+}
+
+/* overlay age gate */
+#ageGate{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.95);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:9999;
+}
+
+button{
+    padding:12px 20px;
+    margin-top:10px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+#enter{
+    background:#1db954;
+    color:#fff;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-    <div>videy.co</div>
-    <div class="upload-btn">Upload</div>
+<!-- AGE CONFIRM -->
+<div id="ageGate">
+    <h2>Konfirmasi Usia</h2>
+    <p>Kamu harus berusia 18+ untuk melanjutkan</p>
+    <button id="enter">Saya 18+ Masuk</button>
 </div>
 
-<div class="video-box" id="box">
-    <video id="vid"
-           src="https://cdn.videy.co/Fmm16v9f1.mp4"
-           playsinline
-           muted
-           preload="auto"></video>
+<div class="wrapper">
+    <h3>Video Viral 🔥</h3>
 
-    <div class="overlay" id="overlay">
-        <div class="play-btn">▶</div>
-    </div>
+    <video id="video" controls playsinline>
+        <source src="VIDEO_URL" type="video/mp4">
+    </video>
 </div>
 
-<!-- CTA NEXT STEP (ENGAGEMENT BOOST) -->
-<div class="cta" id="cta">
-    <button onclick="nextStep()">Lanjut Video 🔥</button>
-</div>
+<!-- ================= MONETAG SCRIPT ================= -->
 
-<div class="bottom-ads">Iklan Area</div>
-
+<!-- Popunder -->
 <script>
-let step = 0;
-const vid = document.getElementById("vid");
-const overlay = document.getElementById("overlay");
-const cta = document.getElementById("cta");
-
-// engagement tracker
-let engaged = false;
-
-// STEP 1: play video
-overlay.addEventListener("click", () => {
-    vid.muted = true;
-    vid.play().catch(()=>{});
-    overlay.style.display = "none";
-    engaged = true;
-
-    // trigger CTA setelah 8 detik
-    setTimeout(() => {
-        cta.style.display = "block";
-    }, 8000);
-});
-
-// STEP 2: CTA click
-function nextStep(){
-    step++;
-
-    if(step === 1){
-        // simulate next content (boost retention)
-        vid.src = "https://cdn.videy.co/Fmm16v9f1.mp4";
-        vid.play().catch(()=>{});
-
-        cta.style.display = "none";
-
-        // trigger possible vignette window
-        triggerAdsBoost();
-    } else {
-        // STEP 3: direct link (monetized exit)
-        window.location.href = "https://omg10.com/4/10874904";
-    }
-}
-
-// ADS BOOST SIGNAL
-function triggerAdsBoost(){
-    console.log("ads signal boost");
-}
-
-// extra engagement tracking
-document.addEventListener("click", () => {
-    engaged = true;
-});
+(function(s){
+    s.dataset.zone='10874906'; 
+    s.src='https://al5sm.com/tag.min.js';
+})(document.body.appendChild(document.createElement('script')));
 </script>
 
-<!-- POPUNDER (STABIL) -->
+<!-- Vignette -->
 <script>
-window.addEventListener("load", function(){
-    let s=document.createElement("script");
-    s.dataset.zone="10874906";
-    s.src="https://al5sm.com/tag.min.js";
-    s.async=true;
-    document.body.appendChild(s);
-});
+(function(s){
+    s.dataset.zone='10874900';
+    s.src='https://n6wxm.com/vignette.min.js';
+})(document.body.appendChild(document.createElement('script')));
 </script>
 
-<!-- VIGNETTE (FIXED + STABLE LOAD) -->
+<!-- ================= LOGIC ================= -->
 <script>
-window.addEventListener("load", function(){
+const gate = document.getElementById("ageGate");
+const btn = document.getElementById("enter");
+const video = document.getElementById("video");
+
+/* enter site */
+btn.onclick = function(){
+
+    gate.style.display = "none";
+
+    // delay kecil biar aman UX + trigger ads
     setTimeout(() => {
-        let s=document.createElement("script");
-        s.dataset.zone="10874900";
-        s.src="https://n6wxm.com/vignette.min.js";
-        s.async=true;
-        document.body.appendChild(s);
-    }, 3000); // delay penting biar monetag detect session
+        video.play().catch(()=>{});
+    }, 500);
+};
+
+/* trigger tambahan popunder saat user interaksi video */
+video.addEventListener("play", function(){
+    console.log("video started");
 });
 </script>
 
