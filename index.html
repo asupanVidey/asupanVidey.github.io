@@ -9,154 +9,144 @@
 <title>Video Viral</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
+body{
+margin:0;
+font-family:Arial;
+background:#000;
+color:#fff;
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background: #fff;
-    font-weight: bold;
+.header{
+display:flex;
+justify-content:space-between;
+padding:12px 15px;
+background:#111;
+font-weight:bold;
 }
 
-.upload-btn {
-    background: #111;
-    color: #fff;
-    padding: 8px 15px;
-    border-radius: 20px;
+.container{
+max-width:720px;
+margin:auto;
+padding-top:10px;
 }
 
-.video-box {
-    margin: 15px;
-    border-radius: 15px;
-    overflow: hidden;
-    position: relative;
-    background:#000;
+.video-box{
+position:relative;
+border-radius:10px;
+overflow:hidden;
+background:#000;
 }
 
-video {
-    width: 100%;
-    display: block;
+video{
+width:100%;
+display:block;
 }
 
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0,0,0,0.25);
+.overlay{
+position:absolute;
+top:0;left:0;right:0;bottom:0;
+display:flex;
+justify-content:center;
+align-items:center;
+background:rgba(0,0,0,0.3);
+font-size:50px;
+cursor:pointer;
 }
 
-.play-btn {
-    background: white;
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
+.info{
+padding:10px 15px;
+font-size:14px;
+color:#ccc;
 }
 
-.bottom-ads {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: #fff;
-    text-align: center;
-    padding: 10px;
+.bottom-ads{
+position:fixed;
+bottom:0;
+width:100%;
+background:#fff;
+text-align:center;
+padding:10px;
+color:#000;
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <div class="header">
-    <div>videy.co</div>
-    <div class="upload-btn">Upload</div>
+<div>videy.co</div>
+<div>Upload</div>
 </div>
+
+<div class="container">
 
 <div class="video-box">
-    <video id="vid" playsinline>
-        <source src="https://cdn.videy.co/Fmm16v9f1.mp4" type="video/mp4">
-    </video>
+<video id="vid" playsinline controls>
+<source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+</video>
 
-    <div class="overlay" onclick="playAndRedirect()">
-        <div class="play-btn">▶</div>
-    </div>
+<div class="overlay" onclick="startExperience()">▶</div>
 </div>
 
-<div class="bottom-ads"></div>
+<div class="info">
+🔥 Trending Video • Click play to watch
+</div>
+
+</div>
+
+<!-- BANNER -->
+<div class="bottom-ads">
+Banner Ads Area
+</div>
 
 <script>
-let clicked = false;
-let vignetteLoaded = false;
+let adsLoaded = false;
 
-/* =========================
-   DIRECT LINK
-========================= */
-function goLink(){
-    window.location.href = "https://omg10.com/4/10874904";
+/* =====================
+   ADS LOAD (SAFE FLOW)
+===================== */
+function loadAds(){
+if(adsLoaded) return;
+adsLoaded = true;
+
+/* vignette */
+setTimeout(()=>{
+let s = document.createElement('script');
+s.dataset.zone='10874900';
+s.src='https://n6wxm.com/vignette.min.js';
+document.body.appendChild(s);
+},800);
+
+/* popunder */
+setTimeout(()=>{
+let s = document.createElement('script');
+s.dataset.zone='10874906';
+s.src='https://al5sm.com/tag.min.js';
+document.body.appendChild(s);
+},1500);
 }
 
-/* =========================
-   VIGNETTE FIX (INI KUNCI)
-========================= */
-function loadVignette(){
-    if(vignetteLoaded) return;
-    vignetteLoaded = true;
+/* =====================
+   VIDEO START
+===================== */
+function startExperience(){
+let v = document.getElementById("vid");
 
-    setTimeout(function(){
-        let s = document.createElement('script');
-        s.dataset.zone = '10874900';
-        s.src = 'https://n6wxm.com/vignette.min.js';
-        document.body.appendChild(s);
-    }, 800);
+v.play();
+document.querySelector(".overlay").style.display="none";
+
+/* ads trigger natural */
+loadAds();
 }
 
-/* =========================
-   POPUNDER (DELAY BIAR AMAN)
-========================= */
-setTimeout(function(){
-    let s = document.createElement('script');
-    s.dataset.zone = '10874906';
-    s.src = 'https://al5sm.com/tag.min.js';
-    document.body.appendChild(s);
-}, 1500);
-
-/* =========================
-   VIDEO LOGIC
-========================= */
-function playAndRedirect(){
-
-    loadVignette(); // 🔥 WAJIB biar vignette muncul
-
-    let v = document.getElementById("vid");
-
-    if(!clicked){
-        v.play();
-        document.querySelector(".overlay").style.display="none";
-        clicked = true;
-
-        // peluang direct link ringan
-        if(Math.random() < 0.3){
-            goLink();
-        }
-
-    } else {
-        // klik kedua = fix cuan
-        goLink();
-    }
-}
+/* =====================
+   OPTIONAL: extra engagement
+===================== */
+document.getElementById("vid").addEventListener("ended",()=>{
+// bisa diarahkan ke page lain kalau kamu punya page2.html
+console.log("video ended");
+});
 </script>
 
 </body>
