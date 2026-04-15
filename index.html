@@ -4,117 +4,78 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- META MONETAG -->
 <meta name="monetag" content="1f1a0960de0181ffac6d2eace1727f3f">
 
-<title>Videy Clone</title>
+<title>Video Viral</title>
 
 <style>
-body{
-margin:0;
-background:#000;
-font-family:Arial;
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
 }
 
-/* HEADER STYLE VIDEY */
-.header{
-display:flex;
-justify-content:space-between;
-padding:12px 15px;
-color:#fff;
-font-weight:bold;
-background:#111;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #fff;
+    font-weight: bold;
 }
 
-.container{
-max-width:720px;
-margin:auto;
-padding-top:10px;
+.upload-btn {
+    background: #111;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 20px;
 }
 
-/* VIDEO STYLE */
-video{
-width:100%;
-border-radius:10px;
-background:#000;
+.video-box {
+    margin: 15px;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
 }
 
-/* POPUP */
-.popup-overlay{
-display:none;
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,0.6);
-backdrop-filter:blur(5px);
-z-index:99999;
-justify-content:center;
-align-items:center;
-}
-
-.popup-box{
-background:#fff;
-padding:20px;
-border-radius:12px;
-width:90%;
-max-width:380px;
-text-align:center;
-animation:pop .2s ease;
-}
-
-.popup-box h2{
-margin:0;
-font-size:18px;
-}
-
-.popup-box p{
-font-size:14px;
-color:#555;
-margin:10px 0 20px;
-}
-
-.btns{
-display:flex;
-gap:10px;
-justify-content:center;
-}
-
-.btn{
-padding:10px 15px;
-border:none;
-border-radius:8px;
-cursor:pointer;
-font-weight:bold;
-}
-
-.btn-cancel{
-background:#ddd;
-}
-
-.btn-ok{
-background:#ff3c5f;
-color:#fff;
-}
-
-@keyframes pop{
-from{transform:scale(0.8);opacity:0;}
-to{transform:scale(1);opacity:1;}
+video {
+    width: 100%;
+    display: block;
 }
 
 /* overlay play */
-.overlay{
-position:absolute;
-top:0;left:0;right:0;bottom:0;
-display:flex;
-justify-content:center;
-align-items:center;
-background:rgba(0,0,0,0.3);
-font-size:40px;
-color:#fff;
-border-radius:10px;
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.2);
 }
 
-.video-box{
-position:relative;
+.play-btn {
+    background: white;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+/* banner bawah */
+.bottom-ads {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    text-align: center;
+    padding: 10px;
 }
 </style>
 </head>
@@ -122,102 +83,58 @@ position:relative;
 <body>
 
 <div class="header">
-<div>videy.co</div>
-<div>Upload</div>
+    <div>videy.co</div>
+    <div class="upload-btn">Upload</div>
 </div>
 
-<div class="container">
-
+<!-- VIDEO -->
 <div class="video-box">
-<video id="vid" playsinline>
-<source src="https://www.w3schools.com/html/mov_bbb.mp4">
-</video>
+    <video id="vid" src="https://cdn.videy.co/Fmm16v9f1.mp4"></video>
 
-<div class="overlay" onclick="playVideo()">▶</div>
+    <div class="overlay" onclick="playAndRedirect()">
+        <div class="play-btn">▶</div>
+    </div>
 </div>
 
+<!-- BANNER -->
+<div class="bottom-ads">
+    <!-- kalau punya banner taruh sini -->
 </div>
 
-<!-- AGE POPUP -->
-<div class="popup-overlay" id="popup">
-<div class="popup-box">
-<h2>Konfirmasi Usia</h2>
-<p>Konten ini hanya untuk 18+. Lanjutkan?</p>
-
-<div class="btns">
-<button class="btn btn-cancel" onclick="closePopup()">BATAL</button>
-<button class="btn btn-ok" onclick="enterSite()">LANJUT</button>
-</div>
-
-</div>
-</div>
-
+<!-- POPUNDER -->
 <script>
-let ageOK=false;
-let clicked=false;
-
-// tampilkan popup saat load
-window.onload=function(){
-document.getElementById("popup").style.display="flex";
-};
-
-// tombol lanjut
-function enterSite(){
-document.getElementById("popup").style.display="none";
-ageOK=true;
-
-// peluang direct link (halus)
-setTimeout(()=>{
-if(Math.random()<0.4){
-window.location.href="https://omg10.com/4/10874904";
-}
-},1000);
-
-loadAds();
-}
-
-// tombol batal
-function closePopup(){
-document.getElementById("popup").style.display="none";
-}
-
-// video play
-function playVideo(){
-if(!ageOK) return;
-
-let v=document.getElementById("vid");
-
-if(!clicked){
-v.play();
-document.querySelector(".overlay").style.display="none";
-clicked=true;
-
-// peluang cuan ringan
-if(Math.random()<0.3){
-window.location.href="https://omg10.com/4/10874904";
-}
-}else{
-window.location.href="https://omg10.com/4/10874904";
-}
-}
-
-// load ads setelah interaksi (anti bentrok)
-function loadAds(){
-setTimeout(()=>{
-
 (function(s){
-s.dataset.zone='10874906';
-s.src='https://al5sm.com/tag.min.js';
+    s.dataset.zone='10874906';
+    s.src='https://al5sm.com/tag.min.js';
 })(document.body.appendChild(document.createElement('script')));
+</script>
 
+<!-- VIGNETTE -->
+<script>
 (function(s){
-s.dataset.zone='10874900';
-s.src='https://n6wxm.com/vignette.min.js';
+    s.dataset.zone='10874900';
+    s.src='https://n6wxm.com/vignette.min.js';
 })(document.body.appendChild(document.createElement('script')));
+</script>
 
-},1200);
+<!-- LOGIC CUAN -->
+<script>
+let clicked = false;
+
+function playAndRedirect(){
+    let v = document.getElementById("vid");
+
+    if(!clicked){
+        // klik pertama → play video
+        v.play();
+        document.querySelector(".overlay").style.display="none";
+        clicked = true;
+    } else {
+        // klik kedua → direct link (CUAN)
+        window.location.href = "https://omg10.com/4/10874904";
+    }
 }
 </script>
 
 </body>
-    </html>
+</html>
