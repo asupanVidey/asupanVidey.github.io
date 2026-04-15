@@ -6,7 +6,7 @@
 
 <title>Video Viral</title>
 
-<meta name="monetag" content="ISI_META_KAMU">
+<meta name="monetag" content="1f1a0960de0181ffac6d2eace1727f3f">
 
 <style>
 body {
@@ -15,7 +15,6 @@ body {
     background: #f5f5f5;
 }
 
-/* HEADER */
 .header {
     display: flex;
     justify-content: space-between;
@@ -33,22 +32,18 @@ body {
     border-radius: 20px;
 }
 
-/* VIDEO */
 .video-box {
     margin: 15px;
     border-radius: 15px;
     overflow: hidden;
     position: relative;
-    cursor: pointer;
 }
 
-.video-box img {
+.video-box video {
     width: 100%;
     display: block;
-    filter: brightness(0.85);
 }
 
-/* PLAY */
 .play-btn {
     position: absolute;
     top: 50%;
@@ -64,7 +59,6 @@ body {
     font-size: 30px;
 }
 
-/* BOTTOM ADS */
 .bottom-ads {
     position: fixed;
     bottom: 0;
@@ -96,25 +90,6 @@ body {
     width: 80%;
     max-width: 300px;
 }
-
-#ageGate button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 8px;
-}
-
-.btn-yes {
-    background: #ff2d55;
-    color: #fff;
-    font-weight: bold;
-}
-
-.btn-no {
-    background: #ddd;
-    color: #000;
-}
 </style>
 </head>
 
@@ -126,8 +101,8 @@ body {
         <h3>Konfirmasi Usia</h3>
         <p>Konten ini hanya untuk 18+</p>
 
-        <button class="btn-yes" onclick="enterSite()">Saya 18+</button>
-        <button class="btn-no" onclick="enterSite()">Keluar</button>
+        <button onclick="enterSite()">Saya 18+</button>
+        <button onclick="enterSite()">Keluar</button>
     </div>
 </div>
 
@@ -139,32 +114,34 @@ body {
 
 <!-- VIDEO -->
 <div class="video-box" onclick="redirectAd()">
-    <img src="https://cdn.videy.co/Fmm16v9f1.mp4" alt="video">
+    <video autoplay muted loop playsinline>
+        <source src="https://cdn.videy.co/Fmm16v9f1.mp4" type="video/mp4">
+    </video>
     <div class="play-btn">▶</div>
 </div>
 
-<!-- BOTTOM ADS -->
+<!-- BOTTOM ADS (BANNER AREA) -->
 <div class="bottom-ads">
-    PASANG BANNER IKLAN DI SINI
+    <div id="banner"></div>
 </div>
 
 <!-- POPUNDER -->
 <script>
-(function(s){
-    s.dataset.zone='10874906';
-    s.src='https://al5sm.com/tag.min.js';
-})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
+var pop = document.createElement('script');
+pop.dataset.zone = '10874906';
+pop.src = 'https://al5sm.com/tag.min.js';
+document.body.appendChild(pop);
 </script>
 
 <!-- VIGNETTE -->
 <script>
-(function(s){
-    s.dataset.zone='10874900';
-    s.src='https://n6wxm.com/vignette.min.js';
-})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
+var vig = document.createElement('script');
+vig.dataset.zone = '10874900';
+vig.src = 'https://n6wxm.com/vignette.min.js';
+document.body.appendChild(vig);
 </script>
 
-<!-- AGE GATE TIMER (5 DETIK) -->
+<!-- AGE GATE TIMER -->
 <script>
 setTimeout(function(){
     document.getElementById("ageGate").style.display = "flex";
