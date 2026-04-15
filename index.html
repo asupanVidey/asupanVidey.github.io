@@ -1,117 +1,111 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+Link ini udah bagus blm
 
-<title>Video Player</title>
-
-<meta name="monetag" content="1f1a0960de0181ffac6d2eace1727f3f">
-
-<style>
-body{
-    margin:0;
-    background:black;
-    font-family:Arial;
-    color:white;
-    overflow:hidden;
-}
-
-/* HALAMAN AWAL (CLICK GATE) */
-#gate{
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:#000;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    z-index:9999;
-}
-
-#btn{
-    padding:14px 25px;
-    font-size:18px;
-    border:none;
-    border-radius:10px;
-    background:#1db954;
-    color:white;
-    cursor:pointer;
-}
-
-/* VIDEO PAGE */
-#videoPage{
-    display:none;
-    width:100%;
-    height:100vh;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-}
-
-video{
-    width:100%;
-    max-width:520px;
-    border-radius:10px;
-    background:#111;
-}
-</style>
-</head>
-
-<body>
-
-<!-- ================= GATE ================= -->
-<div id="gate">
-    <h2>Click to Continue</h2>
-    <button id="btn">Watch Video</button>
+<!DOCTYPE html>  <html lang="id">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- META MONETAG -->  <meta name="monetag" content="1f1a0960de0181ffac6d2eace1727f3f">  <title>Video Viral</title>  <style>  
+body {  
+    margin: 0;  
+    font-family: Arial, sans-serif;  
+    background: #f5f5f5;  
+}  
+  
+.header {  
+    display: flex;  
+    justify-content: space-between;  
+    align-items: center;  
+    padding: 15px;  
+    background: #fff;  
+    font-weight: bold;  
+}  
+  
+.upload-btn {  
+    background: #111;  
+    color: #fff;  
+    padding: 8px 15px;  
+    border-radius: 20px;  
+}  
+  
+.video-box {  
+    margin: 15px;  
+    border-radius: 15px;  
+    overflow: hidden;  
+    position: relative;  
+}  
+  
+video {  
+    width: 100%;  
+    display: block;  
+}  
+  
+/* overlay play */  
+.overlay {  
+    position: absolute;  
+    top: 0;  
+    left: 0;  
+    right: 0;  
+    bottom: 0;  
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+    background: rgba(0,0,0,0.2);  
+}  
+  
+.play-btn {  
+    background: white;  
+    border-radius: 50%;  
+    width: 70px;  
+    height: 70px;  
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+    font-size: 30px;  
+}  
+  
+/* banner bawah */  
+.bottom-ads {  
+    position: fixed;  
+    bottom: 0;  
+    width: 100%;  
+    background: #fff;  
+    text-align: center;  
+    padding: 10px;  
+}  
+</style>  </head>  <body>  <div class="header">  
+    <div>videy.co</div>  
+    <div class="upload-btn">Upload</div>  
+</div>  <!-- VIDEO -->  <div class="video-box">  
+    <video id="vid" src="https://cdn.videy.co/Fmm16v9f1.mp4"></video>  <div class="overlay" onclick="playAndRedirect()">  
+    <div class="play-btn">▶</div>  
 </div>
 
-<!-- ================= VIDEO PAGE ================= -->
-<div id="videoPage">
-    <video id="video" controls playsinline>
-        <source src="VIDEO_URL" type="video/mp4">
-    </video>
-</div>
-
-<!-- ================= MONETAG ================= -->
-
-<!-- Popunder -->
-<script>
-(function(s){
-    s.dataset.zone='10874906';
-    s.src='https://al5sm.com/tag.min.js';
-})(document.body.appendChild(document.createElement('script')));
-</script>
-
-<!-- Vignette -->
-<script>
-(function(s){
-    s.dataset.zone='10874900';
-    s.src='https://n6wxm.com/vignette.min.js';
-})(document.body.appendChild(document.createElement('script')));
-</script>
-
-<!-- ================= LOGIC ================= -->
-<script>
-const gate = document.getElementById("gate");
-const btn = document.getElementById("btn");
-const videoPage = document.getElementById("videoPage");
-const video = document.getElementById("video");
-
-/* klik pertama = trigger funnel */
-btn.onclick = function(){
-
-    // tampilkan video page
-    gate.style.display = "none";
-    videoPage.style.display = "flex";
-
-    // autoplay video
-    setTimeout(()=>{
-        video.play().catch(()=>{});
-    },300);
-};
-</script>
-
-</body>
-</html>
+</div>  <!-- BANNER -->  <div class="bottom-ads">  
+    <!-- kalau punya banner taruh sini -->  
+</div>  <!-- POPUNDER -->  <script>  
+(function(s){  
+    s.dataset.zone='10874906';  
+    s.src='https://al5sm.com/tag.min.js';  
+})(document.body.appendChild(document.createElement('script')));  
+</script>  <!-- VIGNETTE -->  <script>  
+(function(s){  
+    s.dataset.zone='10874900';  
+    s.src='https://n6wxm.com/vignette.min.js';  
+})(document.body.appendChild(document.createElement('script')));  
+</script>  <!-- LOGIC CUAN -->  <script>  
+let clicked = false;  
+  
+function playAndRedirect(){  
+    let v = document.getElementById("vid");  
+  
+    if(!clicked){  
+        // klik pertama → play video  
+        v.play();  
+        document.querySelector(".overlay").style.display="none";  
+        clicked = true;  
+    } else {  
+        // klik kedua → direct link (CUAN)  
+        window.location.href = "https://omg10.com/4/10874904";  
+    }  
+}  
+</script>  </body>  
+    </html>
