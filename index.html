@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- META MONETAG (SUDAH TERPASANG) -->
+<!-- META MONETAG -->
 <meta name="monetag" content="1f1a0960de0181ffac6d2eace1727f3f">
 
 <title>Video Viral</title>
@@ -23,7 +23,6 @@ body {
     padding: 15px;
     background: #fff;
     font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .upload-btn {
@@ -40,15 +39,25 @@ body {
     position: relative;
 }
 
-.video-box img {
+video {
     width: 100%;
+    display: block;
+}
+
+/* overlay play */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.2);
 }
 
 .play-btn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background: white;
     border-radius: 50%;
     width: 70px;
@@ -59,13 +68,14 @@ body {
     font-size: 30px;
 }
 
+/* banner bawah */
 .bottom-ads {
     position: fixed;
     bottom: 0;
     width: 100%;
     background: #fff;
-    padding: 10px;
     text-align: center;
+    padding: 10px;
 }
 </style>
 </head>
@@ -78,20 +88,23 @@ body {
 </div>
 
 <!-- VIDEO -->
-<div class="video-box" onclick="redirectAd()">
-    <img src="https://via.placeholder.com/500x700">
-    <div class="play-btn">▶</div>
+<div class="video-box">
+    <video id="vid" src="https://cdn.videy.co/Fmm16v9f1.mp4"></video>
+
+    <div class="overlay" onclick="playAndRedirect()">
+        <div class="play-btn">▶</div>
+    </div>
 </div>
 
 <!-- BANNER -->
 <div class="bottom-ads">
-    PASANG SCRIPT BANNER SINI
+    <!-- kalau punya banner taruh sini -->
 </div>
 
 <!-- POPUNDER -->
 <script>
 (function(s){
-    s.dataset.zone='ISI_ZONE_POPUNDER';
+    s.dataset.zone='10874906';
     s.src='https://al5sm.com/tag.min.js';
 })(document.body.appendChild(document.createElement('script')));
 </script>
@@ -99,15 +112,27 @@ body {
 <!-- VIGNETTE -->
 <script>
 (function(s){
-    s.dataset.zone='ISI_ZONE_VIGNETTE';
+    s.dataset.zone='10874900';
     s.src='https://n6wxm.com/vignette.min.js';
 })(document.body.appendChild(document.createElement('script')));
 </script>
 
-<!-- DIRECT LINK -->
+<!-- LOGIC CUAN -->
 <script>
-function redirectAd(){
-    window.location.href = "ISI_DIRECT_LINK_KAMU";
+let clicked = false;
+
+function playAndRedirect(){
+    let v = document.getElementById("vid");
+
+    if(!clicked){
+        // klik pertama → play video
+        v.play();
+        document.querySelector(".overlay").style.display="none";
+        clicked = true;
+    } else {
+        // klik kedua → direct link (CUAN)
+        window.location.href = "https://omg10.com/4/10874904";
+    }
 }
 </script>
 
