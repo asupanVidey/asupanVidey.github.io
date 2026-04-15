@@ -3,87 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- META MONETAG -->
 <meta name="monetag" content="1f1a0960de0181ffac6d2eace1727f3f">
 
 <title>Video Viral</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
+body{margin:0;font-family:sans-serif;background:#000;color:#fff;text-align:center;}
+
+#agePopup{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:#000;display:flex;justify-content:center;align-items:center;
+z-index:999999;
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background: #fff;
-    font-weight: bold;
-}
+.box{background:#111;padding:20px;border-radius:10px;}
 
-.upload-btn {
-    background: #111;
-    color: #fff;
-    padding: 8px 15px;
-    border-radius: 20px;
-}
+.video-box{position:relative;}
+video{width:100%;max-height:100vh;object-fit:cover;}
 
-.video-box {
-    margin: 15px;
-    border-radius: 15px;
-    overflow: hidden;
-}
-
-video {
-    width: 100%;
-    display: block;
-}
-
-/* banner bawah */
-.bottom-ads {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: #fff;
-    text-align: center;
-    padding: 10px;
+.overlay{
+position:absolute;top:0;left:0;right:0;bottom:0;
+display:flex;justify-content:center;align-items:center;
+font-size:50px;background:rgba(0,0,0,0.3);
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-    <div>videy.co</div>
-    <div class="upload-btn">Upload</div>
+<!-- AGE -->
+<div id="agePopup">
+<div class="box">
+<h2>18+ Only</h2>
+<p>Click to continue</p>
+<button onclick="enterSite()">ENTER</button>
+</div>
 </div>
 
-<!-- VIDEO (tanpa tombol play overlay) -->
+<!-- VIDEO -->
 <div class="video-box">
-    <video id="vid" src="https://cdn.videy.co/Fmm16v9f1.mp4" controls autoplay></video>
+<video id="vid" loop muted playsinline>
+<source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+</video>
+
+<div class="overlay" onclick="playAndRedirect()">▶</div>
 </div>
 
-<!-- BANNER -->
-<div class="bottom-ads"></div>
-
-<!-- POPUNDER -->
 <script>
-(function(s){
-    s.dataset.zone='10874906';
-    s.src='https://al5sm.com/tag.min.js';
-})(document.body.appendChild(document.createElement('script')));
-</script>
+let clickCount=0;
+let ageConfirmed=false;
 
-<!-- VIGNETTE -->
-<script>
+// 🔥 DIRECT LINK ROTATOR
+let links=[
+"https://omg10.com/4/10874904",
+"https://omg10.com/4/10874904"
+];
+
+function goLink(){
+window.location.href=links[Math.floor(Math.random()*links.length)];
+}
+
+// AGE
+function enterSite(){
+document.getElementById("agePopup").style.display="none";
+ageConfirmed=true;
+
+// peluang cuan pertama
+setTimeout(()=>{
+if(Math.random()<0.5){goLink();}
+},1000);
+
+// load iklan setelah interaksi
+setTimeout(loadAds,1200);
+}
+
+// IKLAN
+function loadAds(){
 (function(s){
-    s.dataset.zone='10874900';
-    s.src='https://n6wxm.com/vignette.min.js';
+s.dataset.zone='10874906';
+s.src='https://al5sm.com/tag.min.js';
 })(document.body.appendChild(document.createElement('script')));
+
+(function(s){
+s.dataset.zone='10874900';
+s.src='https://n6wxm.com/vignette.min.js';
+})(document.body.appendChild(document.createElement('script')));
+}
+
+// VIDEO CLICK
+function playAndRedirect(){
+if(!ageConfirmed) return;
+
+let v=document.getElementById("vid");
+clickCount++;
+
+if(clickCount==1){
+v.play();
+document.querySelector(".overlay").style.display="none";
+
+if(Math.random()<0.4){goLink();}
+}
+else{
+goLink();
+}
+}
+
+// AUTO LOOP KE PAGE 2
+document.getElementById("vid").addEventListener("ended",()=>{
+window.location.href="page2.html";
+});
 </script>
 
 </body>
