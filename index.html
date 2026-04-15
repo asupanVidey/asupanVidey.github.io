@@ -3,80 +3,188 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <meta name="monetag" content="1f1a0960de0181ffac6d2eace1727f3f">
+
 <title>Video Viral</title>
 
 <style>
-body{margin:0;font-family:sans-serif;background:#f5f5f5;}
-#agePopup{position:fixed;top:0;left:0;width:100%;height:100%;background:#000c;display:flex;justify-content:center;align-items:center;z-index:999999;}
-.box{background:#fff;padding:20px;border-radius:10px;text-align:center;}
-.video-box{margin:15px;border-radius:15px;overflow:hidden;position:relative;}
-video{width:100%;}
-.overlay{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;justify-content:center;align-items:center;background:#0003;}
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f5f5f5;
+}
+
+/* AGE POPUP */
+#agePopup {
+    position: fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background: rgba(0,0,0,0.9);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    color:#000;
+}
+
+.age-box {
+    background:#fff;
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+    width:85%;
+    max-width:320px;
+}
+
+.age-box button {
+    margin-top:10px;
+    padding:12px;
+    border:none;
+    border-radius:6px;
+    width:100%;
+    font-weight:bold;
+}
+
+.btn-yes {background:#000;color:#fff;}
+.btn-no {background:#ccc;}
+
+.header {
+    display:flex;
+    justify-content:space-between;
+    padding:15px;
+    background:#fff;
+    font-weight:bold;
+}
+
+.video-box {
+    margin:15px;
+    border-radius:15px;
+    overflow:hidden;
+    position:relative;
+}
+
+video {width:100%;}
+
+.overlay {
+    position:absolute;
+    top:0;left:0;right:0;bottom:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,0.3);
+}
+
+.play-btn {
+    background:#fff;
+    width:70px;height:70px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
+}
 </style>
 </head>
 
 <body>
 
+<!-- AGE GATE -->
 <div id="agePopup">
-<div class="box">
-<h3>18+ Only</h3>
-<button onclick="enterSite()">Enter</button>
+    <div class="age-box">
+        <h3>Konfirmasi Usia</h3>
+        <p>Konten ini hanya untuk 18+</p>
+
+        <button class="btn-yes" onclick="enterSite()">Saya 18+</button>
+        <button class="btn-no" onclick="goLink()">Keluar</button>
+    </div>
 </div>
+
+<div class="header">
+    <div>videy.co</div>
 </div>
 
 <div class="video-box">
-<video id="vid" src="https://cdn.videy.co/Fmm16v9f1.mp4"></video>
-<div class="overlay" onclick="playAndRedirect()">▶</div>
+    <video id="vid" src="https://cdn.videy.co/Fmm16v9f1.mp4"></video>
+
+    <div class="overlay" onclick="playAndRedirect()">
+        <div class="play-btn">▶</div>
+    </div>
 </div>
 
+<!-- POPUNDER -->
 <script>
-let clickCount=0, ageConfirmed=false;
+(function(s){
+    s.dataset.zone='10874906';
+    s.src='https://al5sm.com/tag.min.js';
+})(document.body.appendChild(document.createElement('script')));
+</script>
 
-// rotator link
-let links=[
-"https://omg10.com/4/10874904",
-"https://omg10.com/4/10874904"
+<!-- VIGNETTE -->
+<script>
+(function(s){
+    s.dataset.zone='10874900';
+    s.src='https://n6wxm.com/vignette.min.js';
+})(document.body.appendChild(document.createElement('script')));
+</script>
+
+<script>
+// 🔥 MULTI LINK (WAJIB)
+let links = [
+ "https://omg10.com/4/10874904",
+ "https://omg10.com/4/10874905",
+ "https://omg10.com/4/10874906"
 ];
-function goLink(){window.location.href=links[Math.floor(Math.random()*links.length)];}
 
-// age
+function goLink(){
+    let rand = links[Math.floor(Math.random()*links.length)];
+    window.location.href = rand;
+}
+
+let clicked = false;
+let ageConfirmed = false;
+
+// 🔥 AGE TRAP + FAKE LOADING
 function enterSite(){
-document.getElementById("agePopup").style.display="none";
-ageConfirmed=true;
+    document.getElementById("agePopup").innerHTML = "<h3>Loading video...</h3>";
 
-setTimeout(()=>{if(Math.random()<0.5) goLink();},1000);
-loadAds();
+    setTimeout(() => {
+        document.getElementById("agePopup").style.display = "none";
+        ageConfirmed = true;
+    }, 1500);
+
+    // 🔥 AUTO CUAN
+    setTimeout(() => {
+        goLink();
+    }, 2500);
 }
 
-// iklan delay
-function loadAds(){
-setTimeout(()=>{
-(function(s){s.dataset.zone='10874906';s.src='https://al5sm.com/tag.min.js';})(document.body.appendChild(document.createElement('script')));
-(function(s){s.dataset.zone='10874900';s.src='https://n6wxm.com/vignette.min.js';})(document.body.appendChild(document.createElement('script')));
-},1500);
-}
-
-// video
+// 🔥 VIDEO TRAP
 function playAndRedirect(){
-if(!ageConfirmed)return;
-let v=document.getElementById("vid");
-clickCount++;
+    if(!ageConfirmed) return;
 
-if(clickCount==1){
-v.play();
-document.querySelector(".overlay").style.display="none";
-if(Math.random()<0.4) goLink();
-}
-else if(clickCount==2){
-goLink();
-}
+    let v = document.getElementById("vid");
+
+    if(!clicked){
+        v.play();
+        document.querySelector(".overlay").style.display="none";
+        clicked = true;
+
+        // 🔥 AUTO REDIRECT SETELAH PLAY
+        setTimeout(() => {
+            goLink();
+        }, 4000);
+
+    } else {
+        goLink();
+    }
 }
 
-// auto next
-document.getElementById("vid").addEventListener("ended",()=>{
-window.location.href="page2.html";
-});
+// 🔥 BACK BUTTON TRAP
+history.pushState(null, null, location.href);
+window.onpopstate = function(){
+    goLink();
+};
 </script>
 
 </body>
