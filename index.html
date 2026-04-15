@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- META MONETAG -->
 <meta name="monetag" content="1f1a0960de0181ffac6d2eace1727f3f">
 
 <title>Video Viral</title>
@@ -45,7 +44,6 @@ video {
     display: block;
 }
 
-/* overlay play */
 .overlay {
     position: absolute;
     top: 0;
@@ -69,7 +67,6 @@ video {
     font-size: 30px;
 }
 
-/* banner bawah */
 .bottom-ads {
     position: fixed;
     bottom: 0;
@@ -77,20 +74,17 @@ video {
     background: #fff;
     text-align: center;
     padding: 10px;
-    z-index: 999;
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
     <div>videy.co</div>
     <div class="upload-btn">Upload</div>
 </div>
 
-<!-- VIDEO -->
 <div class="video-box">
     <video id="vid" playsinline>
         <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
@@ -101,52 +95,66 @@ video {
     </div>
 </div>
 
-<!-- BANNER -->
-<div class="bottom-ads">
-    <!-- banner ads (optional) -->
-    <span>Iklan Banner</span>
-</div>
+<div class="bottom-ads">Iklan Banner</div>
 
-<!-- POPUNDER (DELAY BIAR GA BENTROK) -->
-<script>
-setTimeout(function(){
-
-(function(s){
-    s.dataset.zone='10874906';
-    s.src='https://al5sm.com/tag.min.js';
-})(document.body.appendChild(document.createElement('script')));
-
-}, 1500);
-</script>
-
-<!-- VIGNETTE -->
-<script>
-setTimeout(function(){
-
-(function(s){
-    s.dataset.zone='10874900';
-    s.src='https://n6wxm.com/vignette.min.js';
-})(document.body.appendChild(document.createElement('script')));
-
-}, 2000);
-</script>
-
-<!-- LOGIC CUAN -->
 <script>
 let clicked = false;
+let vignetteLoaded = false;
 
+/* =========================
+   DIRECT LINK
+========================= */
+function goLink(){
+    window.location.href = "https://omg10.com/4/10874904";
+}
+
+/* =========================
+   VIGNETTE FIX (INI KUNCI)
+========================= */
+function loadVignette(){
+    if(vignetteLoaded) return;
+    vignetteLoaded = true;
+
+    setTimeout(function(){
+        let s = document.createElement('script');
+        s.dataset.zone = '10874900';
+        s.src = 'https://n6wxm.com/vignette.min.js';
+        document.body.appendChild(s);
+    }, 800);
+}
+
+/* =========================
+   POPUNDER (DELAY BIAR AMAN)
+========================= */
+setTimeout(function(){
+    let s = document.createElement('script');
+    s.dataset.zone = '10874906';
+    s.src = 'https://al5sm.com/tag.min.js';
+    document.body.appendChild(s);
+}, 1500);
+
+/* =========================
+   VIDEO LOGIC
+========================= */
 function playAndRedirect(){
+
+    loadVignette(); // 🔥 WAJIB biar vignette muncul
+
     let v = document.getElementById("vid");
 
     if(!clicked){
-        // klik pertama → play video
         v.play();
         document.querySelector(".overlay").style.display="none";
         clicked = true;
 
+        // peluang direct link ringan
+        if(Math.random() < 0.3){
+            goLink();
+        }
+
     } else {
-        // klik kedua → direct link (CUAN UTAMA)
-        window.location.href = "https://omg10.com/4/10874904";
+        // klik kedua = fix cuan
+        goLink();
     }
 }
 </script>
