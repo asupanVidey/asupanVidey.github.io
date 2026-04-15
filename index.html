@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- META MONETAG -->
 <meta name="monetag" content="1f1a0960de0181ffac6d2eace1727f3f">
 
 <title>Video Viral</title>
@@ -12,76 +13,44 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #000;
+    background: #f5f5f5;
 }
 
-/* HEADER */
 .header {
-    position: fixed;
-    top: 0;
-    width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 12px 15px;
-    color: white;
+    align-items: center;
+    padding: 15px;
+    background: #fff;
     font-weight: bold;
-    z-index: 10;
 }
 
-/* VIDEO FULL */
+.upload-btn {
+    background: #111;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
 .video-box {
-    width: 100%;
-    height: 100vh;
-    position: relative;
+    margin: 15px;
+    border-radius: 15px;
+    overflow: hidden;
 }
 
 video {
     width: 100%;
-    height: 100vh;
-    object-fit: cover;
+    display: block;
 }
 
-/* AGE POPUP (tidak menutup full video) */
-.age-popup {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255,255,255,0.95);
-    padding: 15px;
-    border-radius: 12px;
-    width: 85%;
-    max-width: 320px;
-    text-align: center;
-    display: none;
-    z-index: 99;
-}
-
-.age-popup h3 {
-    margin: 0 0 8px;
-    font-size: 16px;
-}
-
-.age-btn {
-    margin-top: 10px;
-    padding: 10px;
-    width: 100%;
-    border: none;
-    border-radius: 8px;
-    background: black;
-    color: white;
-    font-weight: bold;
-}
-
-/* ADS */
+/* banner bawah */
 .bottom-ads {
     position: fixed;
     bottom: 0;
     width: 100%;
+    background: #fff;
     text-align: center;
-    background: rgba(255,255,255,0.9);
-    padding: 8px;
-    z-index: 20;
+    padding: 10px;
 }
 </style>
 </head>
@@ -90,26 +59,15 @@ video {
 
 <div class="header">
     <div>videy.co</div>
-    <div>Upload</div>
+    <div class="upload-btn">Upload</div>
 </div>
 
-<!-- VIDEO (NO AUTOPLAY) -->
+<!-- VIDEO (tanpa tombol play overlay) -->
 <div class="video-box">
-    <video id="vid"
-        src="https://cdn.videy.co/Fmm16v9f1.mp4"
-        playsinline
-        preload="auto">
-    </video>
+    <video id="vid" src="https://cdn.videy.co/Fmm16v9f1.mp4" controls autoplay></video>
 </div>
 
-<!-- AGE POPUP -->
-<div class="age-popup" id="agePopup">
-    <h3>Konfirmasi Usia</h3>
-    <p>Konten ini hanya untuk 18+</p>
-    <button class="age-btn" onclick="enterSite()">Saya Berusia 18+</button>
-</div>
-
-<!-- BOTTOM ADS -->
+<!-- BANNER -->
 <div class="bottom-ads"></div>
 
 <!-- POPUNDER -->
@@ -128,34 +86,5 @@ video {
 })(document.body.appendChild(document.createElement('script')));
 </script>
 
-<script>
-let ageAccepted = false;
-let video = document.getElementById("vid");
-
-// video mulai otomatis diam (tidak autoplay)
-video.pause();
-
-// tampilkan age gate setelah 5 detik
-setTimeout(() => {
-    document.getElementById("agePopup").style.display = "block";
-}, 5000);
-
-function enterSite(){
-    ageAccepted = true;
-    document.getElementById("agePopup").style.display = "none";
-}
-
-// klik video = play (tanpa tombol play)
-video.addEventListener("click", function(){
-    if(!ageAccepted) return;
-
-    if(video.paused){
-        video.play();
-    } else {
-        window.location.href = "https://omg10.com/4/10874904";
-    }
-});
-</script>
-
 </body>
-    </html>
+</html>
