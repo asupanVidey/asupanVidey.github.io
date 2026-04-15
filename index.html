@@ -4,104 +4,104 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- META MONETAG -->
 <meta name="monetag" content="1f1a0960de0181ffac6d2eace1727f3f">
-<title>Video Feed Viral</title>
+
+<title>Video Viral</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#000;color:#fff;}
-.header{padding:12px;background:#111;font-weight:bold;}
-.video-box{position:relative;}
-video{width:100%;}
-.overlay{
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(0,0,0,0.4);
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
 }
-.btn{
-  background:#fff;color:#000;
-  padding:12px 18px;border-radius:30px;
-  font-weight:bold;
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #fff;
+    font-weight: bold;
 }
-.cta{
-  position:fixed;
-  bottom:70px;
-  left:50%;
-  transform:translateX(-50%);
-  display:none;
-  background:red;
-  padding:12px 20px;
-  border-radius:25px;
+
+.upload-btn {
+    background: #111;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 20px;
 }
-.bottom{
-  position:fixed;bottom:0;width:100%;
-  background:#111;text-align:center;padding:10px;
+
+.video-box {
+    margin: 15px;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+video {
+    width: 100%;
+    display: block;
+}
+
+/* overlay play */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.2);
+}
+
+.play-btn {
+    background: white;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+/* banner bawah */
+.bottom-ads {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    text-align: center;
+    padding: 10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">🔥 Viral Feed</div>
+<div class="header">
+    <div>videy.co</div>
+    <div class="upload-btn">Upload</div>
+</div>
 
+<!-- VIDEO -->
 <div class="video-box">
-    <video id="v" src="https://cdn.videy.co/Fmm16v9f1.mp4" playsinline></video>
+    <video id="vid" src="https://cdn.videy.co/Fmm16v9f1.mp4"></video>
 
-    <div class="overlay" id="ov" onclick="play()">
-        <div class="btn">▶ Play</div>
+    <div class="overlay" onclick="playAndRedirect()">
+        <div class="play-btn">▶</div>
     </div>
 </div>
 
-<div class="cta" id="cta" onclick="nextVideo()">
-    ▶ Video Berikutnya
+<!-- BANNER -->
+<div class="bottom-ads">
+    <!-- kalau punya banner taruh sini -->
 </div>
 
-<div class="bottom">Trending video • swipe untuk lanjut</div>
-
-<script>
-let step = 0;
-let impression = 0;
-
-/* ROTASI LINK ringan (bukan redirect keras) */
-const videos = [
-  "https://cdn.videy.co/Fmm16v9f1.mp4",
-  "https://cdn.videy.co/Fmm16v9f1.mp4"
-];
-
-function logImpression(){
-    impression++;
-    console.log("IMP:", impression);
-}
-
-function play(){
-    document.getElementById("v").play();
-    document.getElementById("ov").style.display="none";
-
-    logImpression(); // IMP 1
-
-    setTimeout(()=>{
-        document.getElementById("cta").style.display="block";
-        logImpression(); // IMP 2 (engagement milestone)
-    },3000);
-}
-
-function nextVideo(){
-    logImpression(); // IMP 3
-
-    let v = document.getElementById("v");
-
-    v.src = videos[Math.floor(Math.random()*videos.length)];
-    v.play();
-
-    document.getElementById("cta").style.display="none";
-
-    setTimeout(()=>{
-        document.getElementById("cta").style.display="block";
-        logImpression(); // IMP 4
-    },4000);
-}
-</script>
-
-<!-- ADS (tetap dipakai kamu) -->
+<!-- POPUNDER -->
 <script>
 (function(s){
     s.dataset.zone='10874906';
@@ -109,11 +109,31 @@ function nextVideo(){
 })(document.body.appendChild(document.createElement('script')));
 </script>
 
+<!-- VIGNETTE -->
 <script>
 (function(s){
     s.dataset.zone='10874900';
     s.src='https://n6wxm.com/vignette.min.js';
 })(document.body.appendChild(document.createElement('script')));
+</script>
+
+<!-- LOGIC CUAN -->
+<script>
+let clicked = false;
+
+function playAndRedirect(){
+    let v = document.getElementById("vid");
+
+    if(!clicked){
+        // klik pertama → play video
+        v.play();
+        document.querySelector(".overlay").style.display="none";
+        clicked = true;
+    } else {
+        // klik kedua → direct link (CUAN)
+        window.location.href = "https://omg10.com/4/10874904";
+    }
+}
 </script>
 
 </body>
