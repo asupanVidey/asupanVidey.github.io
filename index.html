@@ -12,71 +12,106 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #0f0f0f;
-    color: white;
+    background: #f5f5f5;
 }
 
+/* HEADER */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px;
-    background: #111;
+    padding: 15px;
+    background: #fff;
     font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .upload-btn {
-    background: #ff2d55;
+    background: #111;
     color: #fff;
-    padding: 6px 14px;
+    padding: 8px 15px;
     border-radius: 20px;
-    font-size: 14px;
 }
 
+/* VIDEO */
 .video-box {
-    margin: 12px;
-    border-radius: 14px;
+    margin: 15px;
+    border-radius: 15px;
     overflow: hidden;
     position: relative;
-    cursor: pointer;
 }
 
 .video-box img {
     width: 100%;
     display: block;
-    filter: brightness(0.85);
 }
 
+/* PLAY BUTTON */
 .play-btn {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgba(255,255,255,0.9);
-    color: black;
-    width: 65px;
-    height: 65px;
     border-radius: 50%;
+    width: 70px;
+    height: 70px;
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-size: 28px;
+    align-items: center;
+    font-size: 30px;
 }
 
-.caption {
-    margin: 10px 15px;
-    font-size: 14px;
-    opacity: 0.8;
-}
-
+/* BOTTOM ADS */
 .bottom-ads {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background: white;
-    color: black;
+    background: #fff;
     padding: 10px;
     text-align: center;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+
+/* AGE GATE */
+#ageGate {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+}
+
+#ageGate .box {
+    background: #fff;
+    color: #000;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    width: 80%;
+    max-width: 300px;
+}
+
+#ageGate button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+}
+
+.btn-yes {
+    background: #ff2d55;
+    color: #fff;
+    font-weight: bold;
+}
+
+.btn-no {
+    background: #ddd;
+    color: #000;
 }
 </style>
 </head>
@@ -84,56 +119,14 @@ body {
 <body>
 
 <!-- AGE GATE -->
-<div id="ageGate" style="
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,0.95);
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:99999;
-">
+<div id="ageGate">
+    <div class="box">
+        <h3>Konfirmasi Usia</h3>
+        <p>Konten ini hanya untuk 18+</p>
 
-<div style="
-background:#fff;
-color:#000;
-padding:20px;
-border-radius:12px;
-text-align:center;
-width:80%;
-max-width:300px;
-">
-
-<h3>Konfirmasi Usia</h3>
-<p>Konten ini hanya untuk 18+</p>
-
-<button onclick="enterSite()" style="
-background:#ff2d55;
-color:#fff;
-border:none;
-padding:10px;
-border-radius:8px;
-margin-top:10px;
-width:100%;
-font-weight:bold;
-">
-Saya 18+
-</button>
-
-<button onclick="enterSite()" style="
-background:#ddd;
-color:#000;
-border:none;
-padding:10px;
-border-radius:8px;
-margin-top:10px;
-width:100%;
-">
-Keluar
-</button>
-
-</div>
+        <button class="btn-yes" onclick="enterSite()">Saya 18+</button>
+        <button class="btn-no" onclick="enterSite()">Keluar</button>
+    </div>
 </div>
 
 <!-- HEADER -->
@@ -143,53 +136,47 @@ Keluar
 </div>
 
 <!-- VIDEO -->
-<div class="video-box" onclick="handleClick()">
+<div class="video-box" onclick="redirectAd()">
     <img src="https://via.placeholder.com/500x700" alt="video">
     <div class="play-btn">▶</div>
 </div>
 
-<div class="caption">
-🔥 Video viral terbaru hari ini - klik untuk lanjut menonton
-</div>
-
-<!-- BOTTOM ADS -->
+<!-- IKLAN BANNER -->
 <div class="bottom-ads">
-    PASANG BANNER IKLAN DI SINI
+    PASANG SCRIPT BANNER DI SINI
 </div>
 
 <!-- POPUNDER -->
 <script>
-(function(){
-    let s = document.createElement('script');
-    s.dataset.zone = 'ISI_ZONE_POPUNDER';
-    s.src = 'https://al5sm.com/tag.min.js';
-    document.body.appendChild(s);
-})();
+(function(s){
+    s.dataset.zone='ISI_ZONE_POPUNDER';
+    s.src='https://al5sm.com/tag.min.js';
+})(document.body.appendChild(document.createElement('script')));
 </script>
 
 <!-- VIGNETTE -->
 <script>
-(function(){
-    let s = document.createElement('script');
-    s.dataset.zone = 'ISI_ZONE_VIGNETTE';
-    s.src = 'https://n6wxm.com/vignette.min.js';
-    document.body.appendChild(s);
-})();
+(function(s){
+    s.dataset.zone='ISI_ZONE_VIGNETTE';
+    s.src='https://n6wxm.com/vignette.min.js';
+})(document.body.appendChild(document.createElement('script')));
 </script>
 
-<!-- AGE GATE -->
+<!-- AGE GATE TIMER 5 DETIK -->
 <script>
+setTimeout(function(){
+    document.getElementById("ageGate").style.display = "flex";
+}, 5000);
+
 function enterSite(){
     document.getElementById("ageGate").style.display = "none";
 }
 </script>
 
-<!-- VIDEO LINK SUDAH DIPASANG -->
+<!-- DIRECT LINK -->
 <script>
-function handleClick(){
-    setTimeout(function(){
-        window.location.href = "https://cdn.videy.co/Fmm16v9f1.mp4";
-    }, 1200);
+function redirectAd(){
+    window.location.href = "ISI_DIRECT_LINK_KAMU";
 }
 </script>
 
