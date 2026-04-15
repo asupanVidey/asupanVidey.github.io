@@ -52,22 +52,6 @@ background:rgba(0,0,0,0.3);
 font-size:50px;
 cursor:pointer;
 }
-
-.info{
-padding:10px 15px;
-font-size:14px;
-color:#ccc;
-}
-
-.bottom-ads{
-position:fixed;
-bottom:0;
-width:100%;
-background:#fff;
-text-align:center;
-padding:10px;
-color:#000;
-}
 </style>
 </head>
 
@@ -89,28 +73,16 @@ color:#000;
 <div class="overlay" onclick="startExperience()">▶</div>
 </div>
 
-<div class="info">
-🔥 Trending Video • Click play to watch
-</div>
-
-</div>
-
-<!-- BANNER -->
-<div class="bottom-ads">
-Banner Ads Area
 </div>
 
 <script>
 let adsLoaded = false;
 
-/* =====================
-   ADS LOAD (SAFE FLOW)
-===================== */
+/* ADS LOAD */
 function loadAds(){
 if(adsLoaded) return;
 adsLoaded = true;
 
-/* vignette */
 setTimeout(()=>{
 let s = document.createElement('script');
 s.dataset.zone='10874900';
@@ -118,7 +90,6 @@ s.src='https://n6wxm.com/vignette.min.js';
 document.body.appendChild(s);
 },800);
 
-/* popunder */
 setTimeout(()=>{
 let s = document.createElement('script');
 s.dataset.zone='10874906';
@@ -127,26 +98,14 @@ document.body.appendChild(s);
 },1500);
 }
 
-/* =====================
-   VIDEO START
-===================== */
+/* VIDEO START */
 function startExperience(){
 let v = document.getElementById("vid");
-
 v.play();
 document.querySelector(".overlay").style.display="none";
 
-/* ads trigger natural */
 loadAds();
 }
-
-/* =====================
-   OPTIONAL: extra engagement
-===================== */
-document.getElementById("vid").addEventListener("ended",()=>{
-// bisa diarahkan ke page lain kalau kamu punya page2.html
-console.log("video ended");
-});
 </script>
 
 </body>
