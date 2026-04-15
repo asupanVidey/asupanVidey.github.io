@@ -4,78 +4,93 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- META MONETAG -->
 <meta name="monetag" content="1f1a0960de0181ffac6d2eace1727f3f">
 
 <title>Video Viral</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
+body{
+    margin:0;
+    font-family:Arial;
+    background:#000;
+    color:#fff;
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background: #fff;
-    font-weight: bold;
+.header{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 15px;
+    background:#111;
+    font-weight:bold;
 }
 
-.upload-btn {
-    background: #111;
-    color: #fff;
-    padding: 8px 15px;
-    border-radius: 20px;
+.upload-btn{
+    background:#fff;
+    color:#000;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
 }
 
-.video-box {
-    margin: 15px;
-    border-radius: 15px;
-    overflow: hidden;
-    position: relative;
+.video-box{
+    position:relative;
+    width:100%;
+    background:#000;
 }
 
-video {
-    width: 100%;
-    display: block;
+video{
+    width:100%;
+    height:auto;
+    background:#000;
 }
 
-/* overlay play */
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0,0,0,0.2);
+/* OVERLAY START */
+.overlay{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,0.25);
 }
 
-.play-btn {
-    background: white;
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
+.play-btn{
+    width:75px;
+    height:75px;
+    border-radius:50%;
+    background:#fff;
+    color:#000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
 }
 
-/* banner bawah */
-.bottom-ads {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: #fff;
-    text-align: center;
-    padding: 10px;
+/* CTA NEXT STEP */
+.cta{
+    position:fixed;
+    bottom:60px;
+    width:100%;
+    text-align:center;
+    display:none;
+}
+
+.cta button{
+    padding:12px 18px;
+    border:none;
+    border-radius:10px;
+    background:#ffcc00;
+    font-weight:bold;
+}
+
+/* ADS SPACE */
+.bottom-ads{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    background:#111;
+    text-align:center;
+    padding:10px;
 }
 </style>
 </head>
@@ -87,53 +102,99 @@ video {
     <div class="upload-btn">Upload</div>
 </div>
 
-<!-- VIDEO -->
-<div class="video-box">
-    <video id="vid" src="https://cdn.videy.co/Fmm16v9f1.mp4"></video>
+<div class="video-box" id="box">
+    <video id="vid"
+           src="https://cdn.videy.co/Fmm16v9f1.mp4"
+           playsinline
+           muted
+           preload="auto"></video>
 
-    <div class="overlay" onclick="playAndRedirect()">
+    <div class="overlay" id="overlay">
         <div class="play-btn">▶</div>
     </div>
 </div>
 
-<!-- BANNER -->
-<div class="bottom-ads">
-    <!-- kalau punya banner taruh sini -->
+<!-- CTA NEXT STEP (ENGAGEMENT BOOST) -->
+<div class="cta" id="cta">
+    <button onclick="nextStep()">Lanjut Video 🔥</button>
 </div>
 
-<!-- POPUNDER -->
+<div class="bottom-ads">Iklan Area</div>
+
 <script>
-(function(s){
-    s.dataset.zone='10874906';
-    s.src='https://al5sm.com/tag.min.js';
-})(document.body.appendChild(document.createElement('script')));
-</script>
+let step = 0;
+const vid = document.getElementById("vid");
+const overlay = document.getElementById("overlay");
+const cta = document.getElementById("cta");
 
-<!-- VIGNETTE -->
-<script>
-(function(s){
-    s.dataset.zone='10874900';
-    s.src='https://n6wxm.com/vignette.min.js';
-})(document.body.appendChild(document.createElement('script')));
-</script>
+// engagement tracker
+let engaged = false;
 
-<!-- LOGIC CUAN -->
-<script>
-let clicked = false;
+// STEP 1: play video
+overlay.addEventListener("click", () => {
+    vid.muted = true;
+    vid.play().catch(()=>{});
+    overlay.style.display = "none";
+    engaged = true;
 
-function playAndRedirect(){
-    let v = document.getElementById("vid");
+    // trigger CTA setelah 8 detik
+    setTimeout(() => {
+        cta.style.display = "block";
+    }, 8000);
+});
 
-    if(!clicked){
-        // klik pertama → play video
-        v.play();
-        document.querySelector(".overlay").style.display="none";
-        clicked = true;
+// STEP 2: CTA click
+function nextStep(){
+    step++;
+
+    if(step === 1){
+        // simulate next content (boost retention)
+        vid.src = "https://cdn.videy.co/Fmm16v9f1.mp4";
+        vid.play().catch(()=>{});
+
+        cta.style.display = "none";
+
+        // trigger possible vignette window
+        triggerAdsBoost();
     } else {
-        // klik kedua → direct link (CUAN)
+        // STEP 3: direct link (monetized exit)
         window.location.href = "https://omg10.com/4/10874904";
     }
 }
+
+// ADS BOOST SIGNAL
+function triggerAdsBoost(){
+    console.log("ads signal boost");
+}
+
+// extra engagement tracking
+document.addEventListener("click", () => {
+    engaged = true;
+});
+</script>
+
+<!-- POPUNDER (STABIL) -->
+<script>
+window.addEventListener("load", function(){
+    let s=document.createElement("script");
+    s.dataset.zone="10874906";
+    s.src="https://al5sm.com/tag.min.js";
+    s.async=true;
+    document.body.appendChild(s);
+});
+</script>
+
+<!-- VIGNETTE (FIXED + STABLE LOAD) -->
+<script>
+window.addEventListener("load", function(){
+    setTimeout(() => {
+        let s=document.createElement("script");
+        s.dataset.zone="10874900";
+        s.src="https://n6wxm.com/vignette.min.js";
+        s.async=true;
+        document.body.appendChild(s);
+    }, 3000); // delay penting biar monetag detect session
+});
 </script>
 
 </body>
