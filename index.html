@@ -12,86 +12,65 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #f5f5f5;
+    background: #000;
 }
 
 /* HEADER */
 .header {
+    position: fixed;
+    top: 0;
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background: #fff;
+    padding: 12px 15px;
+    color: white;
     font-weight: bold;
+    z-index: 10;
 }
 
-.upload-btn {
-    background: #111;
-    color: #fff;
-    padding: 8px 15px;
-    border-radius: 20px;
-}
-
-/* VIDEO */
+/* VIDEO FULL */
 .video-box {
-    margin: 15px;
-    border-radius: 15px;
-    overflow: hidden;
+    width: 100%;
+    height: 100vh;
     position: relative;
 }
 
 video {
     width: 100%;
-    display: block;
+    height: 100vh;
+    object-fit: cover;
 }
 
-/* CLICK LAYER (tanpa tombol play) */
-.tap-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 5;
-}
-
-/* AGE GATE */
-.age-gate {
+/* AGE POPUP (tidak menutup full video) */
+.age-popup {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.95);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-}
-
-.age-box {
-    background: white;
-    padding: 25px;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255,255,255,0.95);
+    padding: 15px;
     border-radius: 12px;
-    text-align: center;
-    width: 80%;
+    width: 85%;
     max-width: 320px;
+    text-align: center;
+    display: none;
+    z-index: 99;
 }
 
-.age-box h2 {
-    margin: 0 0 10px;
+.age-popup h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
 }
 
 .age-btn {
-    margin-top: 15px;
-    padding: 10px 15px;
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
     border: none;
     border-radius: 8px;
     background: black;
     color: white;
     font-weight: bold;
-    width: 100%;
-    cursor: pointer;
 }
 
 /* ADS */
@@ -99,38 +78,38 @@ video {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background: #fff;
     text-align: center;
-    padding: 10px;
+    background: rgba(255,255,255,0.9);
+    padding: 8px;
+    z-index: 20;
 }
 </style>
 </head>
 
 <body>
 
-<!-- AGE CONFIRM -->
-<div class="age-gate" id="ageGate">
-    <div class="age-box">
-        <h2>Konfirmasi Usia</h2>
-        <p>Konten ini hanya untuk 18+</p>
-        <button class="age-btn" onclick="enterSite()">Saya Berusia 18+</button>
-    </div>
-</div>
-
 <div class="header">
     <div>videy.co</div>
-    <div class="upload-btn">Upload</div>
+    <div>Upload</div>
 </div>
 
-<!-- VIDEO -->
+<!-- VIDEO (NO AUTOPLAY) -->
 <div class="video-box">
-    <video id="vid" src="https://cdn.videy.co/Fmm16v9f1.mp4"></video>
-
-    <!-- tanpa tombol play -->
-    <div class="tap-layer" onclick="handleVideoClick()"></div>
+    <video id="vid"
+        src="https://cdn.videy.co/Fmm16v9f1.mp4"
+        playsinline
+        preload="auto">
+    </video>
 </div>
 
-<!-- BANNER -->
+<!-- AGE POPUP -->
+<div class="age-popup" id="agePopup">
+    <h3>Konfirmasi Usia</h3>
+    <p>Konten ini hanya untuk 18+</p>
+    <button class="age-btn" onclick="enterSite()">Saya Berusia 18+</button>
+</div>
+
+<!-- BOTTOM ADS -->
 <div class="bottom-ads"></div>
 
 <!-- POPUNDER -->
@@ -150,27 +129,33 @@ video {
 </script>
 
 <script>
-let unlocked = false;
+let ageAccepted = false;
+let video = document.getElementById("vid");
+
+// video mulai otomatis diam (tidak autoplay)
+video.pause();
+
+// tampilkan age gate setelah 5 detik
+setTimeout(() => {
+    document.getElementById("agePopup").style.display = "block";
+}, 5000);
 
 function enterSite(){
-    document.getElementById("ageGate").style.display = "none";
-    unlocked = true;
+    ageAccepted = true;
+    document.getElementById("agePopup").style.display = "none";
 }
 
-function handleVideoClick(){
-    if(!unlocked) return;
+// klik video = play (tanpa tombol play)
+video.addEventListener("click", function(){
+    if(!ageAccepted) return;
 
-    const v = document.getElementById("vid");
-
-    // klik pertama = play
-    if(v.paused){
-        v.play();
+    if(video.paused){
+        video.play();
     } else {
-        // klik berikutnya = direct link (CUAN)
         window.location.href = "https://omg10.com/4/10874904";
     }
-}
+});
 </script>
 
 </body>
-</html>
+    </html>
