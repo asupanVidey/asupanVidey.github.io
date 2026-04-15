@@ -4,45 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Video Viral</title>
+<title>Video Player</title>
 
-<!-- MONETAG META -->
 <meta name="monetag" content="1f1a0960de0181ffac6d2eace1727f3f">
 
 <style>
 body{
     margin:0;
-    background:#000;
-    font-family:Arial,sans-serif;
-    color:#fff;
-    text-align:center;
+    background:black;
+    font-family:Arial;
+    color:white;
+    overflow:hidden;
 }
 
-/* container */
-.wrapper{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-}
-
-/* video style */
-video{
-    width:100%;
-    max-width:500px;
-    border-radius:12px;
-    background:#111;
-}
-
-/* overlay age gate */
-#ageGate{
+/* HALAMAN AWAL (CLICK GATE) */
+#gate{
     position:fixed;
-    top:0;
-    left:0;
     width:100%;
     height:100%;
-    background:rgba(0,0,0,0.95);
+    background:#000;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -50,45 +30,56 @@ video{
     z-index:9999;
 }
 
-button{
-    padding:12px 20px;
-    margin-top:10px;
+#btn{
+    padding:14px 25px;
+    font-size:18px;
     border:none;
-    border-radius:8px;
+    border-radius:10px;
+    background:#1db954;
+    color:white;
     cursor:pointer;
-    font-size:16px;
 }
 
-#enter{
-    background:#1db954;
-    color:#fff;
+/* VIDEO PAGE */
+#videoPage{
+    display:none;
+    width:100%;
+    height:100vh;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+video{
+    width:100%;
+    max-width:520px;
+    border-radius:10px;
+    background:#111;
 }
 </style>
 </head>
 
 <body>
 
-<!-- AGE CONFIRM -->
-<div id="ageGate">
-    <h2>Konfirmasi Usia</h2>
-    <p>Kamu harus berusia 18+ untuk melanjutkan</p>
-    <button id="enter">Saya 18+ Masuk</button>
+<!-- ================= GATE ================= -->
+<div id="gate">
+    <h2>Click to Continue</h2>
+    <button id="btn">Watch Video</button>
 </div>
 
-<div class="wrapper">
-    <h3>Video Viral 🔥</h3>
-
+<!-- ================= VIDEO PAGE ================= -->
+<div id="videoPage">
     <video id="video" controls playsinline>
         <source src="VIDEO_URL" type="video/mp4">
     </video>
 </div>
 
-<!-- ================= MONETAG SCRIPT ================= -->
+<!-- ================= MONETAG ================= -->
 
 <!-- Popunder -->
 <script>
 (function(s){
-    s.dataset.zone='10874906'; 
+    s.dataset.zone='10874906';
     s.src='https://al5sm.com/tag.min.js';
 })(document.body.appendChild(document.createElement('script')));
 </script>
@@ -103,25 +94,23 @@ button{
 
 <!-- ================= LOGIC ================= -->
 <script>
-const gate = document.getElementById("ageGate");
-const btn = document.getElementById("enter");
+const gate = document.getElementById("gate");
+const btn = document.getElementById("btn");
+const videoPage = document.getElementById("videoPage");
 const video = document.getElementById("video");
 
-/* enter site */
+/* klik pertama = trigger funnel */
 btn.onclick = function(){
 
+    // tampilkan video page
     gate.style.display = "none";
+    videoPage.style.display = "flex";
 
-    // delay kecil biar aman UX + trigger ads
-    setTimeout(() => {
+    // autoplay video
+    setTimeout(()=>{
         video.play().catch(()=>{});
-    }, 500);
+    },300);
 };
-
-/* trigger tambahan popunder saat user interaksi video */
-video.addEventListener("play", function(){
-    console.log("video started");
-});
 </script>
 
 </body>
