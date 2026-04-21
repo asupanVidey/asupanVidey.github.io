@@ -13,7 +13,6 @@ body {
   font-family:Arial;
 }
 
-/* HEADER */
 .header {
   display:flex;
   justify-content:space-between;
@@ -35,7 +34,6 @@ body {
   font-size:14px;
 }
 
-/* CONTENT */
 .container {
   padding:10px;
 }
@@ -46,40 +44,37 @@ body {
   border-radius:15px;
 }
 
-/* TEXT */
-.text {
+.main-title {
   font-size:18px;
+  font-weight:bold;
   margin:10px 0;
 }
 
-/* BUTTON */
-.btn {
-  background:#ffcc00;
-  color:#000;
-  padding:15px;
-  text-align:center;
-  border-radius:30px;
-  font-weight:bold;
-  margin:15px 0;
-}
-
-/* GRID VIDEO */
+/* GRID */
 .grid {
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
 }
 
-.grid video {
+.item {
+  cursor:pointer;
+}
+
+.item video {
   width:100%;
   border-radius:10px;
+}
+
+.item-title {
+  font-size:13px;
+  margin-top:5px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <div class="logo">viideyhub</div>
   <div class="upload">Upload</div>
@@ -92,15 +87,8 @@ body {
     <video id="mainPlayer" autoplay muted controls></video>
   </div>
 
-  <!-- TEXT -->
-  <div class="text">
-    jangan lupa follow bub ❤️
-  </div>
-
-  <!-- BUTTON -->
-  <div class="btn" onclick="redirectAd()">
-    GABUNG SEKARANG
-  </div>
+  <!-- JUDUL UTAMA -->
+  <div class="main-title" id="mainTitle"></div>
 
   <!-- VIDEO LAIN -->
   <div class="grid" id="videoList"></div>
@@ -108,27 +96,27 @@ body {
 </div>
 
 <script>
-let clicked = false;
+let videos = [];
 
-function redirectAd(){
-  if(!clicked){
-    clicked = true;
-    window.open("https://ISI_DIRECT_LINK_KAMU", "_blank");
-  }
-}
-
-// load video dari JSON
+// load video
 fetch('videos.json')
 .then(res => res.json())
 .then(data => {
 
+  videos = data;
+
+  // video pertama
   document.getElementById("mainPlayer").src = data[0].file;
+  document.getElementById("mainTitle").innerText = data[0].title;
 
   let html = "";
   data.forEach((vid, i) => {
     if(i !== 0){
       html += `
-        <video src="${vid.file}" onclick="gantiVideo('${vid.file}')"></video>
+        <div class="item" onclick="gantiVideo(${i})">
+          <video src="${vid.file}"></video>
+          <div class="item-title">${vid.title}</div>
+        </div>
       `;
     }
   });
@@ -136,9 +124,10 @@ fetch('videos.json')
   document.getElementById("videoList").innerHTML = html;
 });
 
-// ganti video utama
-function gantiVideo(src){
-  document.getElementById("mainPlayer").src = src;
+// ganti video
+function gantiVideo(i){
+  document.getElementById("mainPlayer").src = videos[i].file;
+  document.getElementById("mainTitle").innerText = videos[i].title;
 }
 </script>
 
