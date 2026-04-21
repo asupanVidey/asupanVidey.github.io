@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Feed</title>
+
+<style>
+body {
+  margin:0;
+  background:#000;
+}
+video {
+  width:100%;
+  height:300px;
+  object-fit:cover;
+  margin-bottom:5px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="feed"></div>
+
+<script>
+fetch('videos.json')
+.then(res => res.json())
+.then(data => {
+  let html = "";
+  data.forEach((vid, i) => {
+    html += `
+      <a href="video.html?id=${i}">
+        <video src="${vid.file}" muted autoplay loop></video>
+      </a>
+    `;
+  });
+  document.getElementById("feed").innerHTML = html;
+});
+</script>
+
+</body>
+</html>
