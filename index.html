@@ -3,87 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Video Feed</title>
+<title>Video Viral</title>
 
 <style>
 body {
   margin:0;
   background:#000;
-  overflow:hidden;
+  color:#fff;
+  font-family:Arial;
 }
 
 .container {
-  height:100vh;
-  overflow-y:scroll;
-  scroll-snap-type:y mandatory;
+  padding:10px;
 }
 
-.video {
-  height:100vh;
-  scroll-snap-align:start;
-  position:relative;
-}
-
-video {
+/* video utama */
+.main-video video {
   width:100%;
-  height:100%;
-  object-fit:cover;
+  border-radius:15px;
+}
+
+/* teks */
+.text {
+  font-size:18px;
+  margin:10px 0;
+}
+
+/* tombol */
+.btn {
+  background:#ffcc00;
+  color:#000;
+  padding:15px;
+  text-align:center;
+  border-radius:30px;
+  font-weight:bold;
+  margin:15px 0;
+}
+
+/* list video bawah */
+.grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.grid video {
+  width:100%;
+  border-radius:10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container" id="app"></div>
+<div class="container">
+
+  <!-- VIDEO UTAMA -->
+  <div class="main-video">
+    <video id="mainPlayer" autoplay muted controls></video>
+  </div>
+
+  <!-- TEXT -->
+  <div class="text">
+    jangan lupa follow bub ❤️
+  </div>
+
+  <!-- BUTTON -->
+  <div class="btn" onclick="redirectAd()">
+    GABUNG SEKARANG
+  </div>
+
+  <!-- VIDEO LAIN -->
+  <div class="grid" id="videoList"></div>
+
+</div>
 
 <script>
 let clicked = false;
 
-// monetag click
-document.body.addEventListener("click", function(){
+function redirectAd(){
   if(!clicked){
     clicked = true;
     window.open("https://ISI_DIRECT_LINK_KAMU", "_blank");
   }
-});
+}
 
+// load video dari JSON
 fetch('videos.json')
 .then(res => res.json())
 .then(data => {
-  const app = document.getElementById("app");
 
+  // video utama = video pertama
+  document.getElementById("mainPlayer").src = data[0].file;
+
+  // tampilkan video lain
+  let html = "";
   data.forEach((vid, i) => {
-    let div = document.createElement("div");
-    div.className = "video";
-
-    let video = document.createElement("video");
-    video.src = vid.file;
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-
-    div.appendChild(video);
-    app.appendChild(div);
+    if(i !== 0){
+      html += `
+        <video src="${vid.file}" onclick="gantiVideo('${vid.file}')"></video>
+      `;
+    }
   });
 
-  autoPlay();
+  document.getElementById("videoList").innerHTML = html;
 });
 
-// auto play saat terlihat
-function autoPlay(){
-  const videos = document.querySelectorAll("video");
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.play();
-      } else {
-        entry.target.pause();
-      }
-    });
-  }, { threshold: 0.6 });
-
-  videos.forEach(video => observer.observe(video));
+// ganti video utama
+function gantiVideo(src){
+  document.getElementById("mainPlayer").src = src;
 }
 </script>
 
