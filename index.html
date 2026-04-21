@@ -3,33 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Video Viral</title>
+<title>viideyhub</title>
 
 <style>
 body {
   margin:0;
-  background:#000;
-  color:#fff;
+  background:#fff;
+  color:#000;
   font-family:Arial;
 }
 
+/* HEADER */
+.header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 16px;
+  border-bottom:1px solid #eee;
+}
+
+.logo {
+  font-size:22px;
+  font-weight:bold;
+}
+
+.upload {
+  background:#0d1b2a;
+  color:#fff;
+  padding:8px 16px;
+  border-radius:25px;
+  font-size:14px;
+}
+
+/* CONTENT */
 .container {
   padding:10px;
 }
 
-/* video utama */
+/* VIDEO UTAMA */
 .main-video video {
   width:100%;
   border-radius:15px;
 }
 
-/* teks */
+/* TEXT */
 .text {
   font-size:18px;
   margin:10px 0;
 }
 
-/* tombol */
+/* BUTTON */
 .btn {
   background:#ffcc00;
   color:#000;
@@ -40,7 +63,7 @@ body {
   margin:15px 0;
 }
 
-/* list video bawah */
+/* GRID VIDEO */
 .grid {
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -55,6 +78,12 @@ body {
 </head>
 
 <body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">viideyhub</div>
+  <div class="upload">Upload</div>
+</div>
 
 <div class="container">
 
@@ -93,10 +122,8 @@ fetch('videos.json')
 .then(res => res.json())
 .then(data => {
 
-  // video utama = video pertama
   document.getElementById("mainPlayer").src = data[0].file;
 
-  // tampilkan video lain
   let html = "";
   data.forEach((vid, i) => {
     if(i !== 0){
