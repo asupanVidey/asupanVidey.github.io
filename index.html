@@ -14,14 +14,12 @@ body {
 
 .container {
   height:100vh;
-  width:100%;
   overflow-y:scroll;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type:y mandatory;
 }
 
-.video-box {
+.video {
   height:100vh;
-  width:100%;
   scroll-snap-align:start;
   position:relative;
 }
@@ -36,25 +34,56 @@ video {
 
 <body>
 
-<div class="container" id="container"></div>
+<div class="container" id="app"></div>
 
 <script>
+let clicked = false;
+
+// monetag click
+document.body.addEventListener("click", function(){
+  if(!clicked){
+    clicked = true;
+    window.open("https://ISI_DIRECT_LINK_KAMU", "_blank");
+  }
+});
+
 fetch('videos.json')
 .then(res => res.json())
 .then(data => {
-  let html = "";
+  const app = document.getElementById("app");
+
   data.forEach((vid, i) => {
-    html += `
-      <div class="video-box" onclick="goVideo(${i})">
-        <video src="${vid.file}" autoplay muted loop playsinline></video>
-      </div>
-    `;
+    let div = document.createElement("div");
+    div.className = "video";
+
+    let video = document.createElement("video");
+    video.src = vid.file;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+
+    div.appendChild(video);
+    app.appendChild(div);
   });
-  document.getElementById("container").innerHTML = html;
+
+  autoPlay();
 });
 
-function goVideo(id){
-  window.location.href = "video.html?id=" + id;
+// auto play saat terlihat
+function autoPlay(){
+  const videos = document.querySelectorAll("video");
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.play();
+      } else {
+        entry.target.pause();
+      }
+    });
+  }, { threshold: 0.6 });
+
+  videos.forEach(video => observer.observe(video));
 }
 </script>
 
