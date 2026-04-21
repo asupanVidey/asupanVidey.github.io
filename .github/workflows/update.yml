@@ -1,0 +1,23 @@
+name: Auto Generate Video
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run script
+        run: node update.js
+
+      - name: Commit & Push
+        run: |
+          git config --global user.name "bot"
+          git config --global user.email "bot@email.com"
+          git add .
+          git commit -m "auto update"
+          git push
