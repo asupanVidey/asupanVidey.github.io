@@ -13,7 +13,6 @@ body {
   font-family:Arial;
 }
 
-/* HEADER */
 .header {
   display:flex;
   justify-content:space-between;
@@ -36,7 +35,6 @@ body {
   font-size:14px;
 }
 
-/* CONTENT */
 .container {
   padding:10px;
 }
@@ -52,7 +50,7 @@ body {
   background:#000;
 }
 
-/* OVERLAY PLAY */
+/* OVERLAY */
 .overlay {
   position:absolute;
   top:50%;
@@ -70,7 +68,6 @@ body {
   cursor:pointer;
 }
 
-/* TITLE */
 .main-title {
   font-size:16px;
   font-weight:bold;
@@ -83,7 +80,6 @@ body {
   margin-bottom:10px;
 }
 
-/* GRID */
 .grid {
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -131,20 +127,18 @@ body {
   <!-- VIDEO UTAMA -->
   <div class="main-video" onclick="playVideo()">
     <video id="mainPlayer"></video>
-
-    <!-- overlay play -->
     <div class="overlay" id="overlay">▶</div>
   </div>
 
   <!-- JUDUL -->
   <div class="main-title" id="mainTitle"></div>
 
-  <!-- FAKE ENGAGEMENT -->
+  <!-- META -->
   <div class="meta">
     👁 1.2M views • ❤️ 25K likes
   </div>
 
-  <!-- VIDEO LAIN -->
+  <!-- VIDEO LIST -->
   <div class="grid" id="videoList"></div>
 
 </div>
@@ -153,7 +147,7 @@ body {
 let videos = [];
 let clicked = false;
 
-// 🔥 DIRECT LINK (hanya saat klik play pertama)
+// ▶ PLAY + IKLAN HALUS
 function playVideo(){
   let video = document.getElementById("mainPlayer");
 
@@ -166,7 +160,7 @@ function playVideo(){
   }
 }
 
-// 🔀 RANDOM VIDEO
+// 🔀 RANDOM
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -175,7 +169,7 @@ function shuffle(array) {
   return array;
 }
 
-// LOAD VIDEO
+// LOAD DATA
 fetch('videos.json')
 .then(res => res.json())
 .then(data => {
@@ -199,15 +193,24 @@ fetch('videos.json')
   document.getElementById("videoList").innerHTML = html;
 });
 
-// GANTI VIDEO
+// GANTI VIDEO (FIX SMOOTH + JELAS)
 function loadVideo(i){
-  document.getElementById("mainPlayer").src = videos[i].file;
+  let video = document.getElementById("mainPlayer");
+
+  video.pause();
+  video.currentTime = 0;
+
+  video.src = videos[i].file;
   document.getElementById("mainTitle").innerText = videos[i].title;
 
-  // reset overlay
   document.getElementById("overlay").style.display = "flex";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 </script>
 
 </body>
-  </html>
+</html>
